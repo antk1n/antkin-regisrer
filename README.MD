@@ -18,7 +18,7 @@ psycopg2 2.9.6
 - windows: `python -m venv venv` (KK aktiveerimine: `venv\Scripts\activate`)
 - linux: `python3 -m venv venv` (KK aktiveerimine: `source venv/bin/activate`)
 3. requirements.txt. Installimiseks: `pip install -r requirements.txt`.
-- Kui vistab errori seotud psycopg2'ga, siis saab seda eemaldada failist, installida lõpuni `pip install -r requirements.txt` ja käsitsi installida binary `pip install psycopg2-binary`
+- Kui vistab errori seotud psycopg2'ga, siis panna `psycopg2` asemel `psycopg2-binary` ja käivitada uuesti.
 - installimine kasitsi:
 ```
 pip install asgiref
