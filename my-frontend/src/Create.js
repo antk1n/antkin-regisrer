@@ -206,7 +206,7 @@ export class Create extends Component{
                             <input type="number" name="osauhinguOsa" value={element.osauhinguOsa || ""} onChange={e => this.MyhandleChange(index, e)} required={true}/>
                             {
                                 index ? 
-                                <button type="button"  className="button remove" onClick={() => this.removeFormFields(index)}>Remove</button> 
+                                <button type="button"  className="button remove" onClick={() => this.removeFormFields(index)}>Kustuta asutaja</button> 
                                 : null
                             }
                         </div>

@@ -209,7 +209,7 @@ export class Edit extends Component{
                   <button className="popup-closebtn" onClick={this.hidepopup}>X</button>
                 </div>
 
-                <h1 className='text-centered'>Edit Page</h1>
+                <h1 className='text-centered'>Osaühingu osakapitali suurendamise vorm</h1>
                 <form  onSubmit={this.handleSubmit}>
                   <div className="container-centered">
                     <label>osauhingu nimi</label>
@@ -271,7 +271,7 @@ export class Edit extends Component{
                             <input type="number" name="kood" value={element.kood || ""} onChange={e => this.MyhandleChange(index, e)} required={true} minLength={7} maxLength={11}/>
                             <label>osauhinguOsa</label>
                             <input type="number" name="osauhinguOsa" value={element.osauhinguOsa || ""} onChange={e => this.MyhandleChange(index, e)} required={true}/>
-                            <button type="button"  className="button remove" onClick={() => this.removeFormFields(index)}>Remove</button>
+                            <button type="button"  className="button remove" onClick={() => this.removeFormFields(index)}>Kustuta asutaja</button>
                         </div>
                     ))}
                     <div className="button-section">

@@ -19,43 +19,47 @@ def IsikAPI(request, id = 0):
         try:
             isik = Isikud.objects.get(id = id)
             if isik.isikutyyp == 'J':
-                # kui isik on J, siis kuvame ka lisainfo
-                osauhing = Osauhing.objects.get(isik=id)
-                #osauhingu asutaja andmed
-                oi = Osauhing_Isikud.objects.filter(osauhing = osauhing.id)
-                oi2 = Osauhing_IsikudSerializer(oi, many=True)
+                # kui isik on J, siisotsutame kas kuvada lisainfo
+                if isik.isosauhing == False:
+                    isik_serializer = IsikudSerializer(isik)
+                    return JsonResponse(isik_serializer.data, safe=False)
+                else:
+                    osauhing = Osauhing.objects.get(isik=id)
+                    #osauhingu asutaja andmed
+                    oi = Osauhing_Isikud.objects.filter(osauhing = osauhing.id)
+                    oi2 = Osauhing_IsikudSerializer(oi, many=True)
 
-                osauhing_isikud_isik_id= Osauhing_Isikud.objects.filter(osauhing = osauhing.id).values_list('isik')
-                asutajad = Isikud.objects.filter(id__in = osauhing_isikud_isik_id)
-                asutajad_serializer = IsikudSerializer(asutajad, many=True)
-                asutajad_norm = {}
-                
-                for asutaja in asutajad_serializer.data:
-                    for lisainfo in oi2.data:
-                        if asutaja['id'] == lisainfo['isik']:
-                            asutajad_norm[asutaja['id']] = {
-                                'id':asutaja['id'],
-                                'isikutyyp': asutaja['isikutyyp'],
-                                'isosauhing': asutaja['isosauhing'],
-                                'nimi': asutaja['nimi'],
-                                'perenimi': asutaja['perenimi'],
-                                'kood': asutaja['kood'],
-                                'osauhinguOsa':lisainfo['osauhinguOsa'],
-                                'isasutaja':lisainfo['isasutaja']
-                                }
-                            
+                    osauhing_isikud_isik_id= Osauhing_Isikud.objects.filter(osauhing = osauhing.id).values_list('isik')
+                    asutajad = Isikud.objects.filter(id__in = osauhing_isikud_isik_id)
+                    asutajad_serializer = IsikudSerializer(asutajad, many=True)
+                    asutajad_norm = {}
+                    
+                    for asutaja in asutajad_serializer.data:
+                        for lisainfo in oi2.data:
+                            if asutaja['id'] == lisainfo['isik']:
+                                asutajad_norm[asutaja['id']] = {
+                                    'id':asutaja['id'],
+                                    'isikutyyp': asutaja['isikutyyp'],
+                                    'isosauhing': asutaja['isosauhing'],
+                                    'nimi': asutaja['nimi'],
+                                    'perenimi': asutaja['perenimi'],
+                                    'kood': asutaja['kood'],
+                                    'osauhinguOsa':lisainfo['osauhinguOsa'],
+                                    'isasutaja':lisainfo['isasutaja']
+                                    }
+                                
 
-                #teeme oma json
-                x = {
-                    "id": isik.id,
-                    "isikutyyp": isik.isikutyyp,
-                    "isosauhing": isik.isosauhing,
-                    "nimi": isik.nimi,
-                    "kood": isik.kood,
-                    "asutamiseKP": osauhing.asutamisekp,
-                    "kogukapital": osauhing.kogukapital,
-                    "asutajad": asutajad_norm
-                }
+                    #teeme oma json
+                    x = {
+                        "id": isik.id,
+                        "isikutyyp": isik.isikutyyp,
+                        "isosauhing": isik.isosauhing,
+                        "nimi": isik.nimi,
+                        "kood": isik.kood,
+                        "asutamiseKP": osauhing.asutamisekp,
+                        "kogukapital": osauhing.kogukapital,
+                        "asutajad": asutajad_norm
+                    }
                 return JsonResponse(x, safe=False)
             else:
                 # kui isik ei ole F, siis kuvame isiku andmeid

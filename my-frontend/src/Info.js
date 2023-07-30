@@ -71,8 +71,8 @@ export class Info extends Component{
                                 <td>{String(asutaja.isasutaja)}</td>
                                </tr> 
                             )}
-                        </table>
-                        <button type='button' onClick={this.redirectEdit}>EDIT</button>
+                        </table><br/>
+                        <button type='button' onClick={this.redirectEdit}>Osakapitali suurendamise vormile</button>
                     </div>}
             </div>
         )

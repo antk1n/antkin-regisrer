@@ -17,13 +17,14 @@ psycopg2 2.9.6
 2. Virtuaal keskkonda (edasi KK) loomine: `python -m venv venv` (KK aktiveerimine: `venv\Scripts\activate`)
 3. requirements.txt. Installimiseks: `pip install -r requirements.txt` 
 4. Backend rakenduse käivitamiseks: `python manage.py runserver`. Vaikimisi backend serveri aadress on https://127.0.0.1:8000
-5. Frontend rakenduse käivitamiseks `cd my-frontend` ja `npm start`. aikimisi backend serveri aadress on https://127.0.0.1:3000 
+5. Frontend rakenduse käivitamiseks `cd my-frontend` ja `npm start`. aikimisi frontend serveri aadress on https://127.0.0.1:3000 
 
-avaleht - /
-Osaühingu asutamise vorm - /create
-Osaühingu andmete vaade - muutuv, nt /info/1
-Osaühingu andmete muutmine - muutuv, nt /edit/24
-abi - /help
+'frontendpesa' + ... (vaikimisi https://127.0.0.1:3000)
+- avaleht - /
+- Osaühingu asutamise vorm - /create
+- Osaühingu andmete vaade - muutuv, nt /info/1
+- Osaühingu osakapitali suurendamise vorm - muutuv, nt /edit/24
+- Abi - /help
 
 
 ## Admin paneel
@@ -35,9 +36,12 @@ SuperUser loomiseks: `python manage.py createsuperuser`
 Kui viskab errori, saab proovida `python manage.py migrate auth`
 
 ## Algandmete baasi tekitamine
-TODO
+1. avada pg admin
+2. Juhul, kui tabelid baasis pole veel loodud käivitada script `createdb.sql`.
+3. SQL skript `population.sql`. Script kustutab koik info tabelitest, nullindab loendurid ja lisab testandmeid (kokku lisatakse 33 isikut, 12 osauhingu lisaandmeid ja 22 seoseid isik-osauhing). 
 
 ## Kommentaarid
 - my-frontend/.env - REACT_APP_API -  Backendi aadress, mida kasutab Frontend.
 - GjangoAPI/settings.py - hetkel testimiseks pandud `CORS_ORIGIN_ALLOW_ALL = True` ja `CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']` - Tootmises ei soovitata. Selle asemel lisage domeenid, mis tuleks lisada lubatud loendisse
+- Kasutatud css file asub my-frontend/src/styles
 
